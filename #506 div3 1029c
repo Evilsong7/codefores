@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int maxn1 = 3e5+10;
+ll dp[maxn1];
+int l[maxn1],r[maxn1];
+multiset<int> a,b;
+int main(){
+    int n;
+    while(cin >> n ){
+        int ans=0;
+        for(int i=0;i<n;i++){
+            cin >> l[i] >> r[i];
+            a.insert(l[i]);
+            b.insert(r[i]);
+        }
+        for(int i=0;i<n;i++){
+            a.erase(a.find(l[i]));
+            b.erase(b.find(r[i]));
+            ans=max(ans,*(b.begin())-*(a.rbegin()));
+            a.insert(l[i]);
+            b.insert(r[i]);
+        }
+    cout << ans << endl;
+        //cout << *(b.begin())-*(a.rbegin()) << endl;
+    }
+    return 0;
+}
