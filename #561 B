@@ -1,0 +1,50 @@
+#include <iostream>
+#include <map>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+int main()
+{
+    string a;
+    int t = 0;
+    int c = 0;
+    int check[26] = {0};
+    cin>>a;
+    int n = 0;
+    for(int i = 0;i < a.size();i ++)
+    {
+        if(n + c >= 26)break;
+        if(a[i] == '?')n ++;
+        else if(a[i] >= 'A' && a[i] <= 'Z')
+        {
+            if(!check[a[i] - 'A'])
+            {
+                check[a[i] - 'A'] = i + 1;
+                c ++;
+            }
+            else
+            {
+                i = check[a[i] - 'A'] - 1;
+                t = i + 1;
+                n = c = 0;
+                memset(check,0,sizeof(check));
+            }
+        }
+    }
+    if(n + c < 26)cout<<-1<<endl;
+    else
+    {
+        int j = 0;
+        for(int i = 0;i < a.size();i ++)
+        {
+            if(a[i] != '?')cout<<a[i];
+            else if(i >= t && i <= t + 25)
+            {
+                while(check[j])j++;
+                cout<<(char)('A'+j);
+                j ++;
+            }
+            else cout<<'A';//无关紧要的可以随意填补，只要保证满足要求的子串填补好了，其他的随便填补，子串一定要是连续的26个
+        }
+    }
+}
