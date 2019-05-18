@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+#define LL long long
+using namespace std;
+
+const int maxn=1005;
+LL n;
+LL num[maxn];
+map <string ,char> mp;
+string a[100+10];
+int in[100+20];
+void init(){
+    in[0]=0;
+    in[1]=0;
+    in[2]=1;
+    in[3]=3;
+    in[4]=6;
+    in[5]=10;
+    for(int i=4;i<120;i++) in[i]=in[i-1]+i-1;
+}
+LL dp[maxn];//dp[i]代表前i个所能取得最大值
+int ans=0;
+int sum[30];
+int main(){
+    int n;
+    init();
+    cin >> n;
+    for(int i=0;i<n;i++) {
+        cin >> a[i];
+        ++sum[a[i][0]-'a'];
+    }
+    for(int k=0;k<30;k++){
+        int temp=sum[k]/2;
+        ans+=in[temp];
+        if(sum[k]%2==1) temp++;
+        ans+=in[temp];
+    }
+    cout << ans << endl;
+
+    return 0;
+}
